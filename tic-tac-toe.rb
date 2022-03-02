@@ -3,11 +3,20 @@ class TicTacToe
   attr_accessor :board
 
   def initialize
-    @board = Array.new(3) {Array.new(3) {"-"} }
+    puts "GAME STARTED!"
+    @board = Array.new(3) { Array.new(3) {"-"} }
     display_board
+
+    until player1_win? || player2_win?
+      run_game
+    end
+
   end
 
-  def player1_move(row, col)
+  def player1_move
+    puts "PLAYER 1 TURN"
+    row = gets.chomp.to_i
+    col = gets.chomp.to_i
     @board[row - 1][col - 1] = "X"
     display_board
     if player1_win?
@@ -15,7 +24,10 @@ class TicTacToe
     end
   end
 
-  def player2_move(row, col)
+  def player2_move
+    puts "PLAYER 2 TURN"
+    row = gets.chomp.to_i
+    col = gets.chomp.to_i
     @board[row - 1][col - 1] = "O"
     display_board
     if player2_win?
@@ -24,6 +36,11 @@ class TicTacToe
   end
 
   private
+  def run_game
+    player1_move
+    player2_move
+  end
+
   def display_board
     @board.each { |place| p place }
   end
@@ -55,5 +72,3 @@ class TicTacToe
 end
 
 game = TicTacToe.new
-
-game.player1_move(1,2)
