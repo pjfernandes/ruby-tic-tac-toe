@@ -8,37 +8,46 @@ class TicTacToe
     display_board
 
     until player1_win? || player2_win?
-      run_game
+      player1_move
+      player2_move
     end
-
   end
 
   def player1_move
-    puts "PLAYER 1 TURN"
-    row = gets.chomp.to_i
-    col = gets.chomp.to_i
-    @board[row - 1][col - 1] = "X"
-    display_board
-    if player1_win?
-      puts "PLAYER 1 WINS"
+    if player2_win? == false
+      puts "PLAYER 1 TURN"
+      print "ROW: "
+      row = gets.chomp.to_i
+      print "COL: "
+      col = gets.chomp.to_i
+
+      @board[row - 1][col - 1] = "X"
+      display_board
+      if player1_win?
+        puts "PLAYER 1 WINS"
+      end
     end
   end
 
   def player2_move
-    puts "PLAYER 2 TURN"
-    row = gets.chomp.to_i
-    col = gets.chomp.to_i
-    @board[row - 1][col - 1] = "O"
-    display_board
-    if player2_win?
-      puts "PLAYER 2 WINS"
+    if player1_win? == false
+      puts "PLAYER 2 TURN"
+      print "ROW: "
+      row = gets.chomp.to_i
+      print "COL: "
+      col = gets.chomp.to_i
+
+      @board[row - 1][col - 1] = "O"
+      display_board
+      if player2_win?
+        puts "PLAYER 2 WINS"
+      end
     end
   end
 
   private
-  def run_game
-    player1_move
-    player2_move
+  def valid_move?(row, col)
+    @board[row][col] != "X" || @board[row][col] != "O"
   end
 
   def display_board
@@ -64,7 +73,7 @@ class TicTacToe
   end
 
   def reset_game
-    @board = Array.new(3) {Array.new(3) {"-"} }
+    @board = Array.new(3) { Array.new(3) {"-"} }
     puts "GAME RESETED"
     display_board
   end
