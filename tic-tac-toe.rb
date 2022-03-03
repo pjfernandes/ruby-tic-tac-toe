@@ -11,6 +11,9 @@ class TicTacToe
       player1_move
       player2_move
     end
+
+    puts "GAME FINISHED!"
+
   end
 
   def player1_move
@@ -21,7 +24,17 @@ class TicTacToe
       print "COL: "
       col = gets.chomp.to_i
 
-      @board[row - 1][col - 1] = "X"
+      if valid_move?(row, col) == false
+        puts "INVALID MOVE"
+        until valid_move?(row, col)
+          print "ROW: "
+          row = gets.chomp.to_i
+          print "COL: "
+          col = gets.chomp.to_i
+        end
+      end
+
+      @board[row][col] = "X"
       display_board
       if player1_win?
         puts "PLAYER 1 WINS"
@@ -37,7 +50,17 @@ class TicTacToe
       print "COL: "
       col = gets.chomp.to_i
 
-      @board[row - 1][col - 1] = "O"
+      if valid_move?(row, col) == false
+        puts "INVALID MOVE"
+        until valid_move?(row, col)
+          print "ROW: "
+          row = gets.chomp.to_i
+          print "COL: "
+          col = gets.chomp.to_i
+        end
+      end
+
+      @board[row][col] = "O"
       display_board
       if player2_win?
         puts "PLAYER 2 WINS"
@@ -47,7 +70,7 @@ class TicTacToe
 
   private
   def valid_move?(row, col)
-    @board[row][col] != "X" || @board[row][col] != "O"
+    !(@board[row][col] == "X" || @board[row][col] == "O")
   end
 
   def display_board
